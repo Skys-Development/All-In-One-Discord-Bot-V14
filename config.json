@@ -6,6 +6,11 @@
   "GROQ_API_KEY": "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",
   "MC_SERVER_IP": "mc.willy.us.kg",
   "MC_STATUS_CHANNEL_ID": "1358087159353184318",
-  "embedId": "1364036167301070889",
+  "embedId": "1365717835913101434",
+  "PTERODACTYL_API_KEY": "peli_9h6wfbxniejCYtyYkuIg8jYAc7xAtMnAi66mnjET2c1",
+  "PANEL_URL": "https://panel.willy.us.kg",
+  "PANEL_NAME": "William's Hosting Panel",
+  "PANEL_STATUS_CHANNEL_ID": "1364729583861239939",
+  "panelEmbedId": "1366038974623383622",
   "embedColor": "#5865F2"
 }
