@@ -9,25 +9,27 @@ async function updateEmbed(channel) {
   let embedContent;
 
   try {
-    const response = await axios.get(`https://api.minetools.eu/ping/${mcServerIp}`);
+    const response = await axios.get(`https://api.mcsrvstat.us/2/${mcServerIp}`);
     const data = response.data;
 
-    const motd = data.description?.text || 'No MOTD available';
+    const motd = data.motd?.clean ? data.motd.clean.join('\n') : 'No MOTD available';
     const playersOnline = data.players?.online ? `${data.players.online}` : '0';
     const maxPlayers = data.players?.max ? `${data.players.max}` : 'Unknown';
-    const serverVersion = data.version?.name || 'Unknown';
+    const serverVersion = data.version || 'Unknown';
+    const serverSoftware = data.software || 'Unknown';
 
     embedContent = new EmbedBuilder()
       .setTitle('Minecraft Server Status')
-      .setDescription(data.error ? '🔴 The server is offline.' : '🟢 The server is online!')
+      .setDescription(data.online ? '🟢 The server is online!' : '🔴 The server is offline.')
       .addFields(
         { name: 'IP Address', value: mcServerIp, inline: true },
         { name: 'Players Online', value: `${playersOnline}/${maxPlayers}`, inline: true },
         { name: 'Version', value: serverVersion, inline: true },
+        { name: 'Software', value: serverSoftware, inline: true },
         { name: 'MOTD', value: motd }
       )
-      .setColor(data.error ? '#FF0000' : '#00FF00')
-      .setThumbnail(data.error ? null : `https://api.mcsrvstat.us/icon/${mcServerIp}`)
+      .setColor(data.online ? '#00FF00' : '#FF0000')
+      .setThumbnail(data.online ? `https://api.mcsrvstat.us/icon/${mcServerIp}` : null)
       .setTimestamp();
 
     if (config.embedId) {
