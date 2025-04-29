@@ -56,7 +56,6 @@ async function updateEmbed(channel) {
 module.exports = {
   name: 'ready',
   async execute(client) {
-    console.log(cyan('⚡ Minecraft status event is active.'));
     const channel = client.channels.cache.get(config.MC_STATUS_CHANNEL_ID);
     if (!channel) return console.log(red('❌ Error: Minecraft status channel not found.'));
 
