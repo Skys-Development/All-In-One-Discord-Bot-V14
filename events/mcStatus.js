@@ -12,6 +12,8 @@ async function updateEmbed(channel) {
     const response = await axios.get(`https://api.mcsrvstat.us/2/${mcServerIp}`);
     const data = response.data;
 
+    if (response.status >= 500) return;
+
     const motd = data.motd?.clean ? data.motd.clean.join('\n') : 'No MOTD available';
     const playersOnline = data.players?.online ? `${data.players.online}` : '0';
     const maxPlayers = data.players?.max ? `${data.players.max}` : 'Unknown';
@@ -37,21 +39,19 @@ async function updateEmbed(channel) {
         const message = await channel.messages.fetch(config.embedId);
         await message.edit({ embeds: [embedContent] });
       } catch {
-        console.log(red('⚠️ Previous embed not found, sending a new one.'));
         const sentMessage = await channel.send({ embeds: [embedContent] });
         config.embedId = sentMessage.id;
         fs.writeFileSync('./config.json', JSON.stringify(config, null, 2));
-        console.log(green(`📌 Sent new embed (ID: ${config.embedId})`));
       }
     } else {
-      console.log(yellow('📌 Sending initial embed.'));
       const sentMessage = await channel.send({ embeds: [embedContent] });
       config.embedId = sentMessage.id;
       fs.writeFileSync('./config.json', JSON.stringify(config, null, 2));
-      console.log(green(`✅ Initial embed sent (ID: ${config.embedId})`));
     }
   } catch (error) {
-    console.error(red('❌ Error updating Minecraft status:'), error);
+    if (!error.response || (error.response && error.response.status < 500)) {
+      console.error(red('❌ Error updating Minecraft status:'), error.message);
+    }
   }
 }
 
@@ -59,7 +59,7 @@ module.exports = {
   name: 'ready',
   async execute(client) {
     const channel = client.channels.cache.get(config.MC_STATUS_CHANNEL_ID);
-    if (!channel) return console.log(red('❌ Error: Minecraft status channel not found.'));
+    if (!channel) return;
 
     await updateEmbed(channel);
     setInterval(async () => {
