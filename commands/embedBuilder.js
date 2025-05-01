@@ -31,32 +31,21 @@ module.exports = {
     try {
       embedData = JSON.parse(jsonInput);
 
-      if (!embedData.description) {
-        embedData.description = 'Embed generated successfully.';
-      }
+      const embed = new EmbedBuilder();
       
-      if (!embedData.title) {
-        embedData.title = 'Custom Embed';
-      }
-      
-      if (!embedData.color) {
-        embedData.color = 0x5865F2;
-      }
+      if (embedData.title) embed.setTitle(embedData.title);
+      if (embedData.description) embed.setDescription(embedData.description);
+      if (embedData.color) embed.setColor(embedData.color);
+      if (embedData.fields) embed.setFields(embedData.fields);
+      if (embedData.footer) embed.setFooter(embedData.footer);
+      if (embedData.thumbnail) embed.setThumbnail(embedData.thumbnail);
+      if (embedData.image) embed.setImage(embedData.image);
+      if (embedData.url) embed.setURL(embedData.url);
+
+      await interaction.reply({ embeds: [embed] });
     } catch (error) {
       return interaction.reply({
         content: '❌ Invalid JSON format. Please check your syntax.',
-        flags: MessageFlags.Ephemeral
-      });
-    }
-
-    const embed = new EmbedBuilder(embedData);
-
-    try {
-      await interaction.reply({ embeds: [embed] });
-    } catch (error) {
-      console.error(error);
-      return interaction.reply({
-        content: '❌ There was an error generating the embed. Make sure all required fields exist.',
         flags: MessageFlags.Ephemeral
       });
     }
