@@ -30,6 +30,10 @@ module.exports = {
     let embedData;
     try {
       embedData = JSON.parse(jsonInput);
+
+      if (!embedData.description) {
+        embedData.description = ' ';
+      }
     } catch (error) {
       return interaction.reply({
         content: '❌ Invalid JSON format. Please check your syntax.',
