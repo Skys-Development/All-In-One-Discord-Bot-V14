@@ -1,3 +1,4 @@
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const axios = require('axios');
 const config = require('../config.json');
 
@@ -16,12 +17,7 @@ module.exports = {
         'https://api.groq.com/openai/v1/chat/completions',
         {
           model: 'meta-llama/llama-4-scout-17b-16e-instruct',
-          messages: [
-            {
-              role: 'user',
-              content: message.content,
-            },
-          ],
+          messages: [{ role: 'user', content: message.content }],
         },
         {
           headers: {
@@ -32,10 +28,28 @@ module.exports = {
       );
 
       const reply = response.data.choices[0].message.content;
-      message.reply(reply);
+
+      const button = new ButtonBuilder()
+        .setLabel('Powered by William\'s Projects')
+        .setStyle(ButtonStyle.Secondary)
+        .setCustomId('disabled_button')
+        .setDisabled(true);
+
+      const row = new ActionRowBuilder().addComponents(button);
+
+      await message.reply({ content: reply, components: [row] });
     } catch (error) {
       console.error('AI error:', error.response?.data || error.message);
-      message.reply("Something went wrong with the AI. Please try again!");
+      await message.reply({
+        content: "Something went wrong with the AI. Please try again!",
+        components: [new ActionRowBuilder().addComponents(
+          new ButtonBuilder()
+            .setLabel('Powered by William\'s Projects')
+            .setStyle(ButtonStyle.Secondary)
+            .setCustomId('disabled_button')
+            .setDisabled(true)
+        )]
+      });
     }
   },
 };
