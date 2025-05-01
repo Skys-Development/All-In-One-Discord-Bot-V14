@@ -32,7 +32,15 @@ module.exports = {
       embedData = JSON.parse(jsonInput);
 
       if (!embedData.description) {
-        embedData.description = ' ';
+        embedData.description = 'Embed generated successfully.';
+      }
+      
+      if (!embedData.title) {
+        embedData.title = 'Custom Embed';
+      }
+      
+      if (!embedData.color) {
+        embedData.color = 0x5865F2;
       }
     } catch (error) {
       return interaction.reply({
@@ -48,7 +56,7 @@ module.exports = {
     } catch (error) {
       console.error(error);
       return interaction.reply({
-        content: '❌ There was an error generating the embed.',
+        content: '❌ There was an error generating the embed. Make sure all required fields exist.',
         flags: MessageFlags.Ephemeral
       });
     }
