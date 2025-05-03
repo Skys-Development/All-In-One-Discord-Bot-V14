@@ -27,7 +27,7 @@ module.exports = {
     const itemsPerPage = 5;
     let currentPage = 0;
 
-    function generateEmbed(page) {
+    function generateEmbed(page, client) {
       const start = page * itemsPerPage;
       const end = Math.min(start + itemsPerPage, allCommands.length);
       const fields = allCommands.slice(start, end).map(cmd => ({
@@ -43,9 +43,10 @@ module.exports = {
         .setColor(config.embedColor)
         .setTimestamp()
         .setFooter({ 
-        text: client.user.username, 
-        iconURL: client.user.displayAvatarURL()
-      });
+          text: client.user.username, 
+          iconURL: client.user.displayAvatarURL() 
+        });
+    }
 
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
@@ -61,7 +62,7 @@ module.exports = {
     );
 
     await interaction.reply({
-      embeds: [generateEmbed(currentPage)],
+      embeds: [generateEmbed(currentPage, interaction.client)],
       components: [row]
     });
 
@@ -78,7 +79,7 @@ module.exports = {
       }
 
       await i.update({
-        embeds: [generateEmbed(currentPage)],
+        embeds: [generateEmbed(currentPage, interaction.client)],
         components: [
           new ActionRowBuilder().addComponents(
             new ButtonBuilder()
