@@ -24,9 +24,9 @@ async function updateEmbed(client, channel) {
   const websocketStatus = client.ws.status === 0 ? 'Connected' : 'Disconnected';
   const owner = await client.users.fetch(config.OWNER_ID);
   const servers = client.guilds.cache.size;
-  const users = client.users.cache.filter(user => !user.bot).size; 
+  const users = client.users.cache.filter(user => !user.bot).size;
   const commands = await client.application.commands.fetch();
-  const totalSlashCommands = commands?.size || 0; 
+  const totalSlashCommands = commands?.size || 0;
   const memoryUsage = `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`;
   const botCreationDate = `<t:${Math.floor(client.user.createdTimestamp / 1000)}:D>`;
   const discordJsVersion = require('discord.js').version;
@@ -59,10 +59,11 @@ async function updateEmbed(client, channel) {
       { name: 'System OS', value: systemOS || 'Unknown', inline: true }
     ])
     .setColor(config.embedColor)
-    .setFooter({
-      text: `${client.user.username} • ${new Date().toLocaleTimeString()}`,
-      iconURL: client.user.displayAvatarURL()
-    });
+    .setTimestamp()
+      .setFooter({ 
+        text: client.user.username, 
+        iconURL: client.user.displayAvatarURL()
+      });
 
   if (config.botEmbedId) {
     try {
