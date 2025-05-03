@@ -41,11 +41,11 @@ module.exports = {
         .setDescription('Here are all available slash commands:')
         .addFields(fields)
         .setColor(config.embedColor)
-        .setFooter({
-          text: `${interaction.client.user.username} • ${new Date().toLocaleTimeString()}`,
-          iconURL: interaction.client.user.displayAvatarURL()
-        });
-    }
+        .setTimestamp()
+        .setFooter({ 
+        text: client.user.username, 
+        iconURL: client.user.displayAvatarURL()
+      });
 
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
