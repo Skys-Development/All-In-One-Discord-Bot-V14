@@ -12,5 +12,12 @@
   "BOT_STATUS_CHANNEL_ID": "1358087158384169142",
   "botEmbedId": "1367610674494312580",
   "REVIEWS_CHANNEL_ID": "1358087171818520777",
+  "WEBSITE_STATUS_CHANNEL_ID": "1364729583861239939",
+  "websiteEmbedId": "1368226575836778497",
+  "WEBSITES_TO_MONITOR": [
+    "https://willy.us.kg",
+    "https://qw8.willy.us.kg",
+    "https://uptimer.willy.us.kg"
+  ],
   "embedColor": "#5865F2"
 }
