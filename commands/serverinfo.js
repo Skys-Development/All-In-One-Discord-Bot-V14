@@ -23,9 +23,10 @@ module.exports = {
         { name: 'Number of Roles', value: `${guild.roles.cache.size}`, inline: true },
         { name: 'Number of Channels', value: `${guild.channels.cache.size}`, inline: true }
       )
-      .setFooter({
-        text: `${interaction.client.user.username} • ${new Date().toLocaleTimeString()}`,
-        iconURL: interaction.client.user.displayAvatarURL()
+      .setTimestamp()
+      .setFooter({ 
+        text: interaction.client.user.username, 
+        iconURL: interaction.client.user.displayAvatarURL() 
       });
 
     await interaction.reply({ embeds: [embed] });
