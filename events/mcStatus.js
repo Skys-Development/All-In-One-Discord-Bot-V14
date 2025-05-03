@@ -30,25 +30,25 @@ async function updateEmbed(channel, client) {
         { name: 'MOTD', value: motd }
       )
       .setColor(config.embedColor)
-      .setThumbnail(data.online ? `https://api.mcsrvstat.us/icon/${mcServerIp}` : null)
+      .setThumbnail(client.user.displayAvatarURL())
       .setTimestamp()
       .setFooter({ 
         text: client.user.username, 
         iconURL: client.user.displayAvatarURL()
       });
 
-    if (config.embedId) {
+    if (config.MCEmbedId) {
       try {
-        const message = await channel.messages.fetch(config.embedId);
+        const message = await channel.messages.fetch(config.MCEmbedId);
         await message.edit({ embeds: [embedContent] });
       } catch {
         const sentMessage = await channel.send({ embeds: [embedContent] });
-        config.embedId = sentMessage.id;
+        config.MCEmbedId = sentMessage.id;
         fs.writeFileSync('./config.json', JSON.stringify(config, null, 2));
       }
     } else {
       const sentMessage = await channel.send({ embeds: [embedContent] });
-      config.embedId = sentMessage.id;
+      config.MCEmbedId = sentMessage.id;
       fs.writeFileSync('./config.json', JSON.stringify(config, null, 2));
     }
   } catch {
