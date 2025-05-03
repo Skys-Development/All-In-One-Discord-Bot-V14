@@ -22,9 +22,10 @@ module.exports = {
         { name: '💻┆API Latency', value: `${apiLatency}ms (${(apiLatency / 1000).toFixed(3)}s)`, inline: true },
         { name: '📂┆Database Latency', value: `1ms (0.001s)`, inline: true }
       )
-      .setFooter({
-        text: `${interaction.client.user.username} • ${new Date().toLocaleTimeString()}`,
-        iconURL: interaction.client.user.displayAvatarURL()
+      .setTimestamp()
+      .setFooter({ 
+        text: interaction.client.user.username, 
+        iconURL: interaction.client.user.displayAvatarURL() 
       });
 
     await interaction.editReply({ content: '', embeds: [embed] });
