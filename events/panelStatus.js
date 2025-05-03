@@ -17,16 +17,14 @@ async function fetchPanelStats() {
 
     const nodeStats = nodesResponse.data.data.map(node => ({
       name: node.attributes.name,
-      status: node.attributes.maintenance_mode ? 'Offline' : 'Online',
-      memory: `${Math.round(node.attributes.memory / 1024)} GB`,
-      disk: `${Math.round(node.attributes.disk / 1024)} GB`,
-      servers: serversResponse.data.data.filter(server => server.attributes.node === node.attributes.id).length,
+      status: node.attributes.maintenance_mode ? '🔴 Offline' : '🟢 Online',
+      memory: `🖥️ ${Math.round(node.attributes.memory / 1024)} GB`,
+      disk: `💾 ${Math.round(node.attributes.disk / 1024)} GB`,
+      servers: `🔗 ${serversResponse.data.data.filter(server => server.attributes.node === node.attributes.id).length}`,
     }));
 
     return { nodeStats };
-  } catch (error) {
-    if (error.code === 'ENOTFOUND') return null;
-    console.error(red('❌ Error fetching Pterodactyl panel stats:'), error.message);
+  } catch {
     return null;
   }
 }
@@ -36,16 +34,16 @@ async function updateEmbed(channel) {
   if (!stats) return;
 
   const nodeDetails = stats.nodeStats.map(node => 
-    `**${node.name}** - ${node.status}\nMemory: ${node.memory}\nDisk: ${node.disk}\nServers: ${node.servers}`
+    `**${node.name}** - ${node.status}\n🖥️ Memory: ${node.memory}\n💾 Disk: ${node.disk}\n🔗 Servers: ${node.servers}`
   ).join('\n\n');
 
   const embedContent = new EmbedBuilder()
-    .setTitle(`${config.PANEL_NAME} Node Stats`)
+    .setTitle(`⚡ ${config.PANEL_NAME} Node Stats`)
     .setDescription(nodeDetails)
     .setColor(config.embedColor)
     .setTimestamp()
     .setFooter({
-      text: `${config.BOT_NAME} • ${new Date().toLocaleTimeString()}`,
+      text: `🤖 ${config.BOT_NAME} • ${new Date().toLocaleTimeString()}`,
       iconURL: config.BOT_ICON_URL
     });
 
