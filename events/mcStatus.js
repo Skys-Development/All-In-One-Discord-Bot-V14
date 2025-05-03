@@ -2,9 +2,8 @@ const { EmbedBuilder } = require('discord.js');
 const axios = require('axios');
 const fs = require('fs');
 const config = require('../config.json');
-const { cyan, green, red, yellow } = require('colorette');
 
-async function updateEmbed(channel) {
+async function updateEmbed(channel, client) {
   const mcServerIp = config.MC_SERVER_IP;
   let embedContent;
 
@@ -30,9 +29,13 @@ async function updateEmbed(channel) {
         { name: 'Software', value: serverSoftware, inline: true },
         { name: 'MOTD', value: motd }
       )
-      .setColor(data.online ? '#00FF00' : '#FF0000')
+      .setColor(config.embedColor)
       .setThumbnail(data.online ? `https://api.mcsrvstat.us/icon/${mcServerIp}` : null)
-      .setTimestamp();
+      .setTimestamp()
+      .setFooter({ 
+        text: client.user.username, 
+        iconURL: client.user.displayAvatarURL()
+      });
 
     if (config.embedId) {
       try {
@@ -48,10 +51,8 @@ async function updateEmbed(channel) {
       config.embedId = sentMessage.id;
       fs.writeFileSync('./config.json', JSON.stringify(config, null, 2));
     }
-  } catch (error) {
-    if (!error.response || (error.response && error.response.status < 500)) {
-      console.error(red('❌ Error updating Minecraft status:'), error.message);
-    }
+  } catch {
+    return;
   }
 }
 
@@ -61,9 +62,9 @@ module.exports = {
     const channel = client.channels.cache.get(config.MC_STATUS_CHANNEL_ID);
     if (!channel) return;
 
-    await updateEmbed(channel);
+    await updateEmbed(channel, client);
     setInterval(async () => {
-      await updateEmbed(channel);
+      await updateEmbed(channel, client);
     }, 30000);
   },
 };
