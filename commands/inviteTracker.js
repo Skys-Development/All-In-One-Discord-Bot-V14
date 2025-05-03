@@ -22,27 +22,20 @@ module.exports = {
       const invites = await interaction.guild.invites.fetch();
       const userInvites = invites.filter(invite => invite.inviter.id === targetUser.id);
 
-      let totalInvites = 0;
-      userInvites.forEach(invite => {
-        totalInvites += invite.uses || 0;
-      });
-
-      const embedColor = config.embedColor;
+      let totalInvites = userInvites.reduce((total, invite) => total + (invite.uses || 0), 0);
 
       const embed = new EmbedBuilder()
         .setTitle(`${targetUser.username}'s Invite Stats`)
-        .addFields(
-          { name: 'Total Invites', value: `${totalInvites}`, inline: true }
-        )
-        .setFooter({
-          text: `${interaction.client.user.username} • ${new Date().toLocaleTimeString()}`,
-          iconURL: interaction.client.user.displayAvatarURL()
-        })
-        .setColor(embedColor);
+        .addFields({ name: 'Total Invites', value: `${totalInvites}`, inline: true })
+        .setColor(config.embedColor)
+        .setTimestamp()
+        .setFooter({ 
+          text: interaction.client.user.username, 
+          iconURL: interaction.client.user.displayAvatarURL() 
+        });
 
       interaction.reply({ embeds: [embed] });
-    } catch (error) {
-      console.error(error);
+    } catch {
       return interaction.reply({ content: 'There was an error fetching invite statistics.', ephemeral: true });
     }
   }
