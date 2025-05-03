@@ -28,9 +28,10 @@ module.exports = {
         { name: 'Account Created', value: user.createdAt.toLocaleDateString(), inline: true },
         { name: 'Status', value: member.presence ? member.presence.status : 'Offline', inline: true }
       )
-      .setFooter({
-        text: `${interaction.client.user.username} • ${new Date().toLocaleTimeString()}`,
-        iconURL: interaction.client.user.displayAvatarURL()
+      .setTimestamp()
+      .setFooter({ 
+        text: interaction.client.user.username, 
+        iconURL: interaction.client.user.displayAvatarURL() 
       });
 
     await interaction.reply({ embeds: [embed] });
