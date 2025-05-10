@@ -27,7 +27,9 @@ module.exports = {
         }
       );
 
-      const reply = response.data.choices[0].message.content;
+      let reply = response.data.choices[0].message.content;
+      const maxChunkSize = 2000;
+      const chunks = reply.match(new RegExp(`.{1,${maxChunkSize}}`, 'g')) || [];
 
       const button = new ButtonBuilder()
         .setLabel('Powered by William\'s Projects')
@@ -37,7 +39,12 @@ module.exports = {
 
       const row = new ActionRowBuilder().addComponents(button);
 
-      await message.reply({ content: reply, components: [row] });
+      for (let i = 0; i < chunks.length; i++) {
+        await message.channel.send({
+          content: chunks[i],
+          components: i === chunks.length - 1 ? [row] : []
+        });
+      }
     } catch (error) {
       console.error('AI error:', error.response?.data || error.message);
       await message.reply({
