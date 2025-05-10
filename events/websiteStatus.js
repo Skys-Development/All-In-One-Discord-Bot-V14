@@ -11,13 +11,11 @@ async function checkWebsite(url) {
 
     return {
       status: '🟢 Online',
-      code: response.status,
       responseTime: `${responseTime}ms`
     };
-  } catch (error) {
+  } catch {
     return {
       status: '🔴 Offline',
-      code: error.response?.status || 'N/A',
       responseTime: 'N/A'
     };
   }
@@ -29,7 +27,7 @@ async function updateEmbed(client, channel) {
 
   const websiteFields = websites.map((url, index) => ({
     name: url,
-    value: `**Status:** ${results[index].status}\n**HTTP Code:** ${results[index].code}\n**Response Time:** ${results[index].responseTime}`,
+    value: `**Status:** ${results[index].status}\n**Response Time:** ${results[index].responseTime}`,
     inline: false
   }));
 
@@ -41,7 +39,7 @@ async function updateEmbed(client, channel) {
     .addFields(websiteFields)
     .setColor(config.embedColor)
     .setTimestamp()
-     .setFooter({ 
+    .setFooter({ 
         text: client.user.username, 
         iconURL: client.user.displayAvatarURL()
       });
