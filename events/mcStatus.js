@@ -13,9 +13,9 @@ async function updateEmbed(channel, client) {
 
     if (response.status >= 500) return;
 
-    const motd = data.motd?.clean ? data.motd.clean.join('\n') : 'No MOTD available';
+    const motd = data.motd?.clean ? data.motd.clean.join('\n') : 'Unknown';
     const playersOnline = data.players?.online ? `${data.players.online}` : '0';
-    const maxPlayers = data.players?.max ? `${data.players.max}` : 'Unknown';
+    const maxPlayers = data.players?.max ? `${data.players.max}` : '0';
     const serverVersion = data.version || 'Unknown';
     const serverSoftware = data.software || 'Unknown';
 
