@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { green, yellow, cyan, bold } = require('colorette');
+const { green } = require('colorette');
 
 module.exports = async (client) => {
   const commands = [];
@@ -10,9 +10,9 @@ module.exports = async (client) => {
     const command = require(`../commands/${file}`);
     client.commands.set(command.data.name, command);
     commands.push(command);
-
-    console.log(green('✔ Loaded command:'), cyan(bold(command.data.name)), yellow(`(${file})`));
   }
+
+  console.log(green(`✔ Loaded ${commands.length} commands.`));
 
   return commands;
 };
