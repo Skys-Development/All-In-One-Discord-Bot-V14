@@ -37,12 +37,17 @@ module.exports = {
       if (embedData.description) embed.setDescription(embedData.description);
       if (embedData.color) embed.setColor(embedData.color);
       if (embedData.fields) embed.setFields(embedData.fields);
-      if (embedData.footer) embed.setFooter(embedData.footer);
       if (embedData.thumbnail) embed.setThumbnail(embedData.thumbnail);
       if (embedData.image) embed.setImage(embedData.image);
       if (embedData.url) embed.setURL(embedData.url);
 
-      await interaction.reply({ embeds: [embed] });
+      await interaction.reply({
+        content: '✅ Done!',
+        flags: MessageFlags.Ephemeral
+      });
+
+      await interaction.channel.send({ embeds: [embed] });
+
     } catch (error) {
       return interaction.reply({
         content: '❌ Invalid JSON format. Please check your syntax.',
