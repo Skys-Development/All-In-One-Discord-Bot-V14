@@ -13,7 +13,6 @@ async function updateEmbed(channel, client) {
 
     if (response.status >= 500) return;
 
-    const motd = data.motd?.clean ? data.motd.clean.join('\n') : 'Unknown';
     const playersOnline = data.players?.online ? `${data.players.online}` : '0';
     const maxPlayers = data.players?.max ? `${data.players.max}` : '0';
     const serverVersion = data.version || 'Unknown';
@@ -26,8 +25,7 @@ async function updateEmbed(channel, client) {
         { name: 'IP Address', value: mcServerIp, inline: true },
         { name: 'Players Online', value: `${playersOnline}/${maxPlayers}`, inline: true },
         { name: 'Version', value: serverVersion, inline: true },
-        { name: 'Software', value: serverSoftware, inline: true },
-        { name: 'MOTD', value: motd }
+        { name: 'Software', value: serverSoftware, inline: true }
       )
       .setColor(config.embedColor)
       .setThumbnail(client.user.displayAvatarURL())
