@@ -18,8 +18,15 @@ module.exports = {
       });
     }
 
-    const role = interaction.options.getRole('role');
+    const guild = interaction.client.guilds.cache.get(interaction.guildId);
+    if (!guild) {
+      return interaction.reply({
+        content: '❌ Error: Unknown Guild. Bot may have been removed.',
+        ephemeral: true
+      });
+    }
 
+    const role = interaction.options.getRole('role');
     if (!role) {
       return interaction.reply({
         content: '❌ Invalid role selection.',
@@ -29,11 +36,15 @@ module.exports = {
 
     await interaction.reply({ content: `⏳ Assigning ${role.name} to all human members...`, ephemeral: true });
 
-    const members = await interaction.guild.members.fetch();
+    const members = await guild.members.fetch();
 
     members.forEach(async member => {
       if (!member.user.bot && !member.roles.cache.has(role.id)) {
-        await member.roles.add(role).catch(console.error);
+        try {
+          await member.roles.add(role);
+        } catch (error) {
+          console.error(`⚠️ Failed to assign role to ${member.user.tag}:`, error.message);
+        }
       }
     });
 
