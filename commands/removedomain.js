@@ -11,7 +11,7 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('removedomain')
-    .setDescription('Remove a domain from the domain list')
+    .setDescription('Remove a domain from the domain list (owner only)')
     .addStringOption(option =>
       option.setName('domain')
         .setDescription('Enter the domain to remove')
