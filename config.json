@@ -22,5 +22,23 @@
     "https://qw8.willy.us.kg",
     "https://ai.willy.us.kg"
   ],
-  "embedColor": "#5865F2"
+  "embedColor": "#5865F2",
+  "domains": [
+    {
+      "name": "mojosmp.dpdns.org",
+      "zoneId": "5c63a22624379d844376d864412f2b66",
+      "cloudflareToken": "L2fCBXDSX-MCknTNWkl5W16BwYL3YblgkVswzeQ5"
+    },
+    {
+      "name": "revisewn.dpdns.org",
+      "zoneId": "0bd457000301429e62079e99b8ec88e2",
+      "cloudflareToken": "L2fCBXDSX-MCknTNWkl5W16BwYL3YblgkVswzeQ5"
+    },
+    {
+      "name": "xplay.dpdns.org",
+      "zoneId": "e5e69a6e322589026eee0f99f1d0645b",
+      "cloudflareToken": "MCknTNWkl5W16BwYL3YblgkVswzeQ5"
+    }
+  ],
+  "dnsLocked": true
 }
