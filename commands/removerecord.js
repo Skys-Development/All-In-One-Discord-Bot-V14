@@ -12,7 +12,7 @@ const axios = require('axios');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('removerecord')
-    .setDescription('Remove a DNS record from a selected domain')
+    .setDescription('Remove a DNS record from a selected domain (owner only)')
     .addStringOption(option =>
       option.setName('domain')
         .setDescription('Enter the domain to remove a record from')
