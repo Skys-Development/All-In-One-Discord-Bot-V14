@@ -14,17 +14,17 @@ module.exports = {
           members: {
             id: config.COUNTER_IDS.members,
             count: members.filter(member => !member.user.bot).size,
-            format: count => `👤・ Members: ${count}`
+            format: count => `👤・Members: ${count}`
           },
           bots: {
             id: config.COUNTER_IDS.bots,
             count: members.filter(member => member.user.bot).size,
-            format: count => `🤖・ Bots: ${count}`
+            format: count => `🤖・Bots: ${count}`
           },
           boosts: {
             id: config.COUNTER_IDS.boosts,
             count: guild.premiumSubscriptionCount,
-            format: count => `🚀・ Boosts: ${count}`
+            format: count => `🚀・Boosts: ${count}`
           }
         };
 
