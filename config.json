@@ -1,6 +1,7 @@
 {
   "token": "MTM2MzQ4NDMzNjUzOTgzMjUwMg.GvdU18.Jq-NA4hqD4WOYbK2ED_zGFADleXTyCNyrqHL-o",
   "clientId": "1363484336539832502",
+  "GUILD_ID": "1358075785977663668",
   "OWNER_ID": "1342676516353343513",
   "DEV_LOG_CHANNEL_ID": "1364388468867727482",
   "BOT_VERSION": "1.4.2",
@@ -23,6 +24,11 @@
     "https://ai.willy.us.kg"
   ],
   "embedColor": "#5865F2",
+  "COUNTER_IDS": {
+    "members": "1374503590579798188",
+    "bots": "1374503636129939670",
+    "boosts": "1374503705491279902"
+  },
   "domains": [
     {
       "name": "mojosmp.dpdns.org",
