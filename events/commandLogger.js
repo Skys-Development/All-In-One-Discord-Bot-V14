@@ -13,7 +13,7 @@ module.exports = {
       let value = option.value;
 
       if (option.type === 6) value = `<@${option.value}>`;
-      if (option.type === 7) value = `<#${option.value}>`; 
+      if (option.type === 7) value = `<#${option.value}>`;
       if (option.type === 8) value = `<@&${option.value}>`;
       if (option.type === 11) value = `[Attachment: ${option.value.name}]`;
 
@@ -26,68 +26,71 @@ module.exports = {
     });
 
     const embed = new EmbedBuilder()
-      .setTitle('📝 Command Executed')
+      .setTitle('Command Executed')
       .setColor(config.embedColor || '#5865F2')
       .addFields(
         { 
-          name: '👤 User Info',
-          value: [
-            `**Tag:** ${interaction.user.tag}`,
-            `**ID:** ${interaction.user.id}`,
-            `**Created:** <t:${Math.floor(interaction.user.createdTimestamp / 1000)}:R>`,
-          ].join('\n'),
+          name: '👤 User',
+          value: `${interaction.user.tag}\n${interaction.user.id}`,
           inline: true 
         },
         { 
-          name: '⌨️ Command Details',
-          value: [
-            `**Name:** \`/${interaction.commandName}\``,
-            `**Options:** ${options.length ? `\`${options.join('`, `')}\`` : 'None'}`,
-          ].join('\n'),
+          name: '⌨️ Command',
+          value: `/${interaction.commandName}`,
           inline: true 
         },
         { 
-          name: '📍 Location',
-          value: [
-            `**Channel:** ${interaction.channel.name} (<#${interaction.channel.id}>)`,
-            `**Category:** ${interaction.channel.parent?.name || 'None'}`,
-            interaction.guild ? `**Guild:** ${interaction.guild.name}` : '**DM Channel**'
-          ].join('\n'),
+          name: '📍 Channel',
+          value: `${interaction.channel.name}\n${interaction.channel.id}`,
           inline: true 
+        },
+        {
+          name: '🔧 Options',
+          value: options.length ? options.join('\n') : 'None',
+          inline: true
+        },
+        {
+          name: '⏰ Created',
+          value: `<t:${Math.floor(interaction.user.createdTimestamp / 1000)}:R>`,
+          inline: true
         }
       );
 
     if (interaction.guild) {
-      embed.addFields({
-        name: '🏠 Guild Details',
-        value: [
-          `**Name:** ${interaction.guild.name}`,
-          `**ID:** ${interaction.guild.id}`,
-          `**Members:** ${interaction.guild.memberCount}`,
-          `**Created:** <t:${Math.floor(interaction.guild.createdTimestamp / 1000)}:R>`
-        ].join('\n'),
-        inline: false
-      });
-    }
-
-    if (interaction.member) {
-      embed.addFields({
-        name: '👥 Member Details',
-        value: [
-          `**Nickname:** ${interaction.member.nickname || 'None'}`,
-          `**Joined:** <t:${Math.floor(interaction.member.joinedTimestamp / 1000)}:R>`,
-          `**Roles:** ${interaction.member.roles.cache.size - 1}`,
-          `**Permissions:** ${interaction.member.permissions.toArray().map(p => `\`${p}\``).join(', ') || 'None'}`
-        ].join('\n'),
-        inline: false
-      });
+      embed.addFields(
+        {
+          name: '🏠 Server',
+          value: `${interaction.guild.name}\n${interaction.guild.id}`,
+          inline: true
+        },
+        {
+          name: '👥 Members',
+          value: `${interaction.guild.memberCount}`,
+          inline: true
+        },
+        {
+          name: '📅 Joined',
+          value: `<t:${Math.floor(interaction.member.joinedTimestamp / 1000)}:R>`,
+          inline: true
+        },
+        {
+          name: '📋 Nickname',
+          value: interaction.member.nickname || 'None',
+          inline: true
+        },
+        {
+          name: '💫 Roles',
+          value: `${interaction.member.roles.cache.size - 1}`,
+          inline: true
+        }
+      );
     }
 
     embed
       .setThumbnail(interaction.user.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setFooter({ 
-        text: `${interaction.client.user.username} • Command Logger`, 
+        text: `${interaction.client.user.username}`, 
         iconURL: interaction.client.user.displayAvatarURL() 
       });
 
