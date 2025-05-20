@@ -3,28 +3,33 @@ const config = require('../config.json');
 
 module.exports = {
   name: 'guildMemberAdd',
-
   async execute(member) {
+    if (member.user.bot) return;
+    if (config.MEMBER_ROLE_ID) {
+      try {
+        await member.roles.add(config.MEMBER_ROLE_ID);
+      } catch (error) {
+        console.error('Failed to add member role:', error);
+      }
+    }
     const channel = member.guild.channels.cache.get(config.WELCOME_CHANNEL_ID);
-
     if (!channel) return;
 
     const embed = new EmbedBuilder()
-      .setTitle('🎉 Welcome to the Server!')
-      .setDescription(`Hi ${member.user}, welcome to **${member.guild.name}**! We're glad to have you here.`)
-      .setColor(config.embedColor)
+      .setTitle('Welcome!')
+      .setDescription(`Welcome to the server, ${member}! 🎉`)
+      .setColor(config.embedColor || '#2F3136')
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-      .addFields(
-        { name: '👋 Getting Started', value: 'Feel free to introduce yourself and explore the server!' },
-        { name: '📚 Rules & Guidelines', value: 'Check out the rules channel to stay informed.' },
-        { name: '🎮 Have Fun!', value: 'We hope you enjoy your stay with us!' }
-      )
-      .setFooter({
-        text: `User joined: ${member.user.tag}`,
-        iconURL: member.user.displayAvatarURL({ dynamic: true })
-      })
-      .setTimestamp();
+      .setTimestamp()
+      .setFooter({ 
+        text: member.user.tag, 
+        iconURL: member.user.displayAvatarURL() 
+      });
 
-    channel.send({ embeds: [embed] });
+    try {
+      await channel.send({ embeds: [embed] });
+    } catch (error) {
+      console.error('Failed to send welcome message:', error);
+    }
   },
 };
