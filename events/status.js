@@ -50,7 +50,10 @@ async function getBotEmbed(client) {
         ])
         .setColor(config.embedColor)
         .setTimestamp()
-        .setFooter({ text: 'Click the buttons below to view other stats' });
+        .setFooter({ 
+            text: client.user.username, 
+            iconURL: client.user.displayAvatarURL() 
+        });
 }
 
 async function getMCEmbed(client) {
@@ -68,7 +71,10 @@ async function getMCEmbed(client) {
             ])
             .setColor(config.embedColor)
             .setTimestamp()
-            .setFooter({ text: 'Click the buttons below to view other stats' });
+            .setFooter({ 
+            text: client.user.username, 
+            iconURL: client.user.displayAvatarURL() 
+        });
     } catch {
         return new EmbedBuilder()
             .setTitle('Minecraft Server Status')
