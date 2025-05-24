@@ -94,9 +94,9 @@ async function getWebsiteEmbed(client) {
         .setColor(config.embedColor)
         .setTimestamp()
         .setFooter({ 
-        text: message.client.user.username, 
-        iconURL: message.client.user.displayAvatarURL() 
-      });
+            text: client.user.username, 
+            iconURL: client.user.displayAvatarURL() 
+        });
 }
 
 function getButtons(currentPage = 'bot') {
@@ -163,7 +163,7 @@ module.exports = {
         if (!channel) return;
 
         await updatePanel('bot', client, channel);
-        
+
         // Update every 30 seconds
         setInterval(() => updatePanel('bot', client, channel), 30000);
 
