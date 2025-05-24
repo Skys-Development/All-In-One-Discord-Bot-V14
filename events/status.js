@@ -93,7 +93,10 @@ async function getWebsiteEmbed(client) {
         )
         .setColor(config.embedColor)
         .setTimestamp()
-        .setFooter({ text: 'Click the buttons below to view other stats' });
+        .setFooter({ 
+        text: message.client.user.username, 
+        iconURL: message.client.user.displayAvatarURL() 
+      });
 }
 
 function getButtons(currentPage = 'bot') {
