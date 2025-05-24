@@ -13,11 +13,14 @@ module.exports = {
         if (!channel) return;
 
         const embed = new EmbedBuilder()
-            .setTitle('🎫 Support Tickets')
-            .setDescription('Need help? Click the button below to create a ticket!')
-            .setColor(config.embedColor)
-            .setFooter({ text: 'Support System' })
-            .setTimestamp();
+  .setTitle('🎫 Support Tickets')
+  .setDescription('Need help? Click the button below to create a ticket!')
+  .setColor(config.embedColor)
+  .setFooter({ 
+    text: client.user.username, 
+    iconURL: client.user.displayAvatarURL()
+  })
+  .setTimestamp();
 
         const button = new ButtonBuilder()
             .setCustomId('create_ticket')
