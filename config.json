@@ -12,14 +12,6 @@
   "YOUTUBE_API_KEY": "AIzaSyDdgBw7BgAswu9vPnkNrK7lHweeDj4z1vg",
   "FORTNITE_API_KEY": "17fd8fea-be2b-4d47-a42c-50eca63c33fb",
   "MC_SERVER_IP": "mc.willy.us.kg",
-  "STATUS_CHANNEL_ID": "1358087158384169142",
-  "STATUS_MESSAGE_ID": "1375832961512902767",
-  "REVIEWS_CHANNEL_ID": "1358087171818520777",
-  "WEBSITES_TO_MONITOR": [
-    "https://willy.us.kg",
-    "https://qw8.willy.us.kg",
-    "https://ai.willy.us.kg"
-  ],
   "embedColor": "#5865F2",
   "COUNTER_IDS": {
     "members": "1374503590579798188",
@@ -34,22 +26,4 @@
     "TICKET_MESSAGE_ID": "1374713184878989373",
     "tickets": []
   },
-  "domains": [
-    {
-      "name": "mojosmp.dpdns.org",
-      "zoneId": "5c63a22624379d844376d864412f2b66",
-      "cloudflareToken": "L2fCBXDSX-MCknTNWkl5W16BwYL3YblgkVswzeQ5"
-    },
-    {
-      "name": "revisewn.dpdns.org",
-      "zoneId": "0bd457000301429e62079e99b8ec88e2",
-      "cloudflareToken": "L2fCBXDSX-MCknTNWkl5W16BwYL3YblgkVswzeQ5"
-    },
-    {
-      "name": "xplay.dpdns.org",
-      "zoneId": "e5e69a6e322589026eee0f99f1d0645b",
-      "cloudflareToken": "MCknTNWkl5W16BwYL3YblgkVswzeQ5"
-    }
-  ],
-  "dnsLocked": true
 }
