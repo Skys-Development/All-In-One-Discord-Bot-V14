@@ -1,7 +1,7 @@
 <h1 align="center">
    ALL IN ONE Bot - Discord.js v14
 </h1>
-<h4 align="center">Made with love by William2sober</h4>
+<h4 align="center">Made with love by William Holley</h4>
 
 ---------
 
